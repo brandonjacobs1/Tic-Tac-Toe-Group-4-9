@@ -30,7 +30,6 @@ namespace Tic_Tac_Toe
             {
                 if ((array[i,0] == array[i,1] && array[i,1] == array[i, 2]) | (array[0, i] == array[1, i] && array[1, i] == array[2, i]))
                 {
-                    Console.WriteLine("Winner Place Holder Text");
                     return true;
 
                 }
@@ -38,7 +37,6 @@ namespace Tic_Tac_Toe
                 //Checking the diagonal spaces to see if there is a winner
                 else if ((array[0, 0] == array[1, 1] && array[1, 1] == array[2, 2]) | (array[2, 0] == array[1, 1] && array[1, 1] == array[0, 2]))
                 {
-                    Console.WriteLine("Winner Place Holder Text");
                     return true;
                 }
 
