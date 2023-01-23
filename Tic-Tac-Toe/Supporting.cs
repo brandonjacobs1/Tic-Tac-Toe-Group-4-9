@@ -22,15 +22,32 @@ namespace Tic_Tac_Toe
             Console.WriteLine("     |     |      ");
         }
 
-        public void CheckWinner (char[,] array)
+        public bool CheckWinner (char[,] array)
         {
+
+            //Checking the horizontal and vertical spaces to see if there is a winner
             for (int i = 0; i < 3; ++i)
             {
                 if ((array[i,0] == array[i,1] && array[i,1] == array[i, 2]) | (array[0, i] == array[1, i] && array[1, i] == array[2, i]))
                 {
                     Console.WriteLine("Winner Place Holder Text");
+                    return true;
+
                 }
+
+                //Checking the diagonal spaces to see if there is a winner
+                else if ((array[0, 0] == array[1, 1] && array[1, 1] == array[2, 2]) | (array[2, 0] == array[1, 1] && array[1, 1] == array[0, 2]))
+                {
+                    Console.WriteLine("Winner Place Holder Text");
+                    return true;
+                }
+
             }
+
+            //If they don't win, false is returned
+            return false;
+
+
         }
     }
 }
