@@ -21,5 +21,16 @@ namespace Tic_Tac_Toe
             Console.WriteLine("  " + array[2, 0] + "  |  " + array[2, 1] + "  |  " + array[2, 2]);
             Console.WriteLine("     |     |      ");
         }
+
+        public void CheckWinner (char[,] array)
+        {
+            for (int i = 0; i < 3; ++i)
+            {
+                if ((array[i,0] == array[i,1] && array[i,1] == array[i, 2]) | (array[0, i] == array[1, i] && array[1, i] == array[2, i]))
+                {
+                    Console.WriteLine("Winner Place Holder Text");
+                }
+            }
+        }
     }
 }
