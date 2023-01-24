@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Tic_Tac_Toe
 {
@@ -13,13 +14,17 @@ namespace Tic_Tac_Toe
 
     class Driver
     {
+        Supporting supportClass = new Supporting();
         public char[,] gameBoard = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
         public int counter = 0;
-
+        bool player1 = true;
+        int[] gameGuesses = new int[9];
         int[] position = new int[2];
+        
 
         public Dictionary<int, int[]> positionLookup = new Dictionary<int, int[]>()
         {
+        
             {1, new int[] {0,0} },
             {2, new int[] {0,1} },
             {3, new int[] {0,2} },
@@ -34,9 +39,10 @@ namespace Tic_Tac_Toe
         public void PlayGame()
         {
             Console.WriteLine("Welcome to the game!");
+            PrintBoard();
 
             int i = 0;
-            while (!checkWinner() | i < 9)
+            while (!checkWinner() && counter < 10)
             {
                 IterateGame();
                 PrintBoard();
@@ -47,38 +53,60 @@ namespace Tic_Tac_Toe
         } 
         public int userInput()
         {
-            Console.Write("Where do you want to place your guess (Enter 0-9)? ");
-            int userGuess =  Int32.Parse(Console.ReadLine());
+            int userGuess = 0;
+            while ((userGuess < 1 | userGuess > 10) & !(gameGuesses.Contains(userGuess))) {
 
+                if (player1)
+                {
+                    Console.Write("Player 1, where do you want to place your guess (Enter 0-9)? ");
+                    userGuess = Int32.Parse(Console.ReadLine());
+                    
+                }
+                else
+                {
+                    Console.Write("Player 2, where do you want to place your guess (Enter 0-9)? ");
+                    userGuess = Int32.Parse(Console.ReadLine());
+                    
+                }
+                //Console.WriteLine("Invalid Entry. Please enter a number 1-9");
+            }
+            gameGuesses[counter] = userGuess;
             return userGuess;
         }
+        
         public void IterateGame()
         {
+            
             int userGuess = userInput();
             
             int[] arr;
-            arr = positionLookup[userGuess];
-            int x = arr[0];
-            int y = arr[1];
+            if (userGuess > 0 | userGuess < 10)
+            {
+                arr = positionLookup[userGuess];
+                int x = arr[0];
+                int y = arr[1];
 
-            counter++;
-            if (counter % 2 == 1)
-            {
-                gameBoard[x, y] = 'o';
-            }
-            else
-            {
-                gameBoard[x, y] = 'x';
+                counter++;
+                if (counter % 2 == 1)
+                {
+                    gameBoard[x, y] = 'O';
+                    player1 = false;
+                }
+                else
+                {
+                    gameBoard[x, y] = 'X';
+                    player1 = true;
+                }
             }
             
         }
         public void PrintBoard()
         {
-            //Call supporting class
+            supportClass.DisplayBoard(gameBoard);
         }
         public bool checkWinner()
         {
-            bool isWinner = //call supporitng class;
+            bool isWinner = supportClass.CheckWinner(gameBoard);
             if (isWinner)
             {
                 if(counter % 2 == 1)
