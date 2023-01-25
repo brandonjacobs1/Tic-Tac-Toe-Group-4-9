@@ -20,7 +20,6 @@ namespace Tic_Tac_Toe
         bool player1 = true;
         int[] gameGuesses = new int[9];
         int[] position = new int[2];
-        
 
         public Dictionary<int, int[]> positionLookup = new Dictionary<int, int[]>()
         {
@@ -42,7 +41,7 @@ namespace Tic_Tac_Toe
             PrintBoard();
 
             int i = 0;
-            while (!checkWinner() && counter < 10)
+            while (!checkWinner() & counter < 10)
             {
                 IterateGame();
                 PrintBoard();
@@ -51,25 +50,47 @@ namespace Tic_Tac_Toe
             }
             
         } 
+        public bool validateGuess(int userGuess)
+        {
+            bool isInRange = false;
+            bool isNotGuessed = true;
+            bool checkGuess = false;
+            if (positionLookup.ContainsKey(userGuess))
+            {
+                isInRange = true;
+            }
+            if (gameGuesses.Contains(userGuess)){
+                isNotGuessed = false;
+            }
+            if (isNotGuessed && isInRange)
+            {
+                checkGuess = true;
+            }
+            return checkGuess;
+        }
         public int userInput()
         {
+            bool guessValid = false;
             int userGuess = 0;
-            while ((userGuess < 1 | userGuess > 10) & !(gameGuesses.Contains(userGuess))) {
 
+            while (!guessValid)
+            {
                 if (player1)
                 {
-                    Console.Write("Player 1, where do you want to place your guess (Enter 0-9)? ");
+                    Console.Write("Player 1, where do you want to place your guess (Enter 1-9)? ");
                     userGuess = Int32.Parse(Console.ReadLine());
-                    
+
                 }
                 else
                 {
-                    Console.Write("Player 2, where do you want to place your guess (Enter 0-9)? ");
+                    Console.Write("Player 2, where do you want to place your guess (Enter 1-9)? ");
                     userGuess = Int32.Parse(Console.ReadLine());
-                    
                 }
-                //Console.WriteLine("Invalid Entry. Please enter a number 1-9");
+
+                guessValid = validateGuess(userGuess);
+                
             }
+
             gameGuesses[counter] = userGuess;
             return userGuess;
         }
