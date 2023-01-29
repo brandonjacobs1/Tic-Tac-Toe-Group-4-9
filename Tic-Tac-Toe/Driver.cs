@@ -14,6 +14,7 @@ namespace Tic_Tac_Toe
 
     class Driver
     {
+        // initialize all variables
         Supporting supportClass = new Supporting();
         public char[,] gameBoard = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
         public int counter = 0;
@@ -35,11 +36,14 @@ namespace Tic_Tac_Toe
             {9, new int[] {2,2} }
 
         };
+
+        // method to play the game. calls the other methods that actually execute the game logic
         public void PlayGame()
         {
             Console.WriteLine("Welcome to the game!");
             PrintBoard();
 
+            // keeps running the game while there is no winner or tie
             int i = 0;
             while (!checkWinner() & counter < 10)
             {
@@ -50,6 +54,7 @@ namespace Tic_Tac_Toe
             }
             
         } 
+        //checks to make sure the user input is valid
         public bool validateGuess(int userGuess)
         {
             bool isInRange = false;
@@ -68,6 +73,7 @@ namespace Tic_Tac_Toe
             }
             return checkGuess;
         }
+        // allows each user to take a turn
         public int userInput()
         {
             bool guessValid = false;
@@ -95,6 +101,7 @@ namespace Tic_Tac_Toe
             return userGuess;
         }
         
+        // adds the user guess to the gameboard
         public void IterateGame()
         {
             
@@ -121,10 +128,12 @@ namespace Tic_Tac_Toe
             }
             
         }
+        // displays the board
         public void PrintBoard()
         {
             supportClass.DisplayBoard(gameBoard);
         }
+        // checks for a winner
         public bool checkWinner()
         {
             bool isWinner = supportClass.CheckWinner(gameBoard);
